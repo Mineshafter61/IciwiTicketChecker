@@ -20,26 +20,28 @@ public class SignActionTicketCheck extends SignAction {
     @Override
     public void execute(SignActionEvent info) {
         if (info.getAction() == SignActionType.GROUP_ENTER) {
-            MinecartGroup group = info.getGroup();
-            for (MinecartMember<?> member : group) {
-                CommonMinecart<?> minecartEntity = member.getEntity();
-                minecartEntity.getPlayerPassengers().forEach(player -> {
-                    if (!checkTicket(player))
-                        minecartEntity.removePassenger(player);
+            for (MinecartMember<?> m : info.getGroup()) {
+                CommonMinecart<?> e = member.getEntity();
+                e.getPlayerPassengers().forEach(p -> {
+                    if (!checkTicket(p))
+                        e.removePassenger(p);
                 });
             }
         }
         throw new UnsupportedOperationException("Unimplemented method 'execute'");
     }
 
+    public boolean checkTicket(Player player) {
+        // TODO: IMPORTANT, REMEMBER TO EDIT
+        return false;
+    }
+
     @Override
     public boolean build(SignChangeActionEvent event) {
-        return true;
-    }
-    
-
-    public boolean checkTicket(Player player) {
-        // TODO: IMPORTANT
-        return false;
+        return SignBuildOptions.create()
+                .setPermission("ticketchecker.build")
+                .setName("ticket checker")
+                .setDescription("checks if the passengers of a train have valid tickets")
+                .handle(event.getPlayer());
     }
 }
