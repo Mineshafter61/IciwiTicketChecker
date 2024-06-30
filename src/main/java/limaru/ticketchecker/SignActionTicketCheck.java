@@ -33,6 +33,12 @@ public class SignActionTicketCheck extends SignAction {
 
     public boolean checkTicket(Player player) {
         // TODO: IMPORTANT, REMEMBER TO EDIT
+var inventory = player.getInventory()
+for (var item : inventory.getContents()) {
+// check for ticket
+boolean hasTicket = item.getType() == Material.PAPER || item.getType == Material.NAME_TAG;
+if (hasTicket) return true;
+}
         return false;
     }
 
